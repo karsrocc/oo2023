@@ -14,13 +14,13 @@ class Person {
     }
 }
 
-// Define a second class named "Main"
+
 class Main {
     public static void main(String[] args) {
-        // Create a new Person object
+        
         Person person = new Person("Alice");
 
-        // Call the sayHello method on the Person object
+        
         person.sayHello();
     }
 }
