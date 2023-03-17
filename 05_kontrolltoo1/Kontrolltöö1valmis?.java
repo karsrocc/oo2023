@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
-
+//Loon toidu klassi
  class Food {
     private String name;
     private double proteinPct;
@@ -36,7 +36,7 @@ import java.util.List;
         return carbPct;
     }
 }
-
+//loon komponentide klassi, et hiljem kasutada seda
  class FoodComponent {
     private double quantity;
     private Food food;
@@ -58,7 +58,7 @@ import java.util.List;
         return quantity * food.getFatPct() / 100.0;
     }
 }
-
+//toitude list
  class FoodList {
     private List<Food> foods;
 
@@ -82,7 +82,7 @@ import java.util.List;
         }
         return null;
     }
-
+//toidu sorteerimine rasvaprotsendi alusel. 
     public List<Food> getFoodsByFatPctRange(double min, double max) {
         List<Food> result = new ArrayList<Food>();
         for (Food food : foods) {
@@ -94,7 +94,7 @@ import java.util.List;
         return result;
     }
 }
-
+//toiduretseptide klass
  class Recipe {
     private String name;
     private List<FoodComponent> components;
@@ -107,7 +107,7 @@ import java.util.List;
     public void addComponent(FoodComponent component) {
         components.add(component);
     }
-
+//toidus oleva proteiini kogus
     public double getProteinAmount() {
         double total = 0.0;
         for (FoodComponent component : components) {
@@ -115,7 +115,7 @@ import java.util.List;
         }
         return total;
     }
-
+//toidus oleva rasva kogus
     public double getFatAmount() {
         double total = 0.0;
         for (FoodComponent component : components) {
@@ -123,7 +123,7 @@ import java.util.List;
         }
         return total;
     }
-
+//toidus olevate süsivesikute kogus
     public double getCarbAmount() {
         double total = 0.0;
         for (FoodComponent component : components) {
@@ -132,7 +132,7 @@ import java.util.List;
         return total;
     }
 }
-
+//toiduaine klass
  class FoodItem {
     private Recipe recipe;
 
@@ -154,7 +154,7 @@ import java.util.List;
         Food sourCream = new Food("Hapukoor", 2.0, 20.0, 3.0);
         Food sausage = new Food("Vorst", 15.0, 25.0, 1.0);
 
-        // loo komponendid
+        // loo komponendid salati jaoks
         FoodComponent potatoComp = new FoodComponent(100.0, potato);
         FoodComponent sourCreamComp = new FoodComponent(30.0, sourCream);
         FoodComponent sausageComp = new FoodComponent(50.0, sausage);
