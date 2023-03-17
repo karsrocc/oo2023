@@ -19,19 +19,19 @@ import java.util.List;
             throw new IllegalArgumentException("Protsent ei tohi ületada 100!");
         }
     }
-
+//toitaine nimi
     public String getName() {
         return name;
     }
-
+//proteiini protsent
     public double getProteinPct() {
         return proteinPct;
     }
-
+//rasvaprotsent
     public double getFatPct() {
         return fatPct;
     }
-
+//süsivesikute protsent
     public double getCarbPct() {
         return carbPct;
     }
@@ -40,12 +40,12 @@ import java.util.List;
  class FoodComponent {
     private double quantity;
     private Food food;
-
+//toiduaine koguse määramine
     public FoodComponent(double quantity, Food food) {
         this.quantity = quantity;
         this.food = food;
     }
-
+//toiduaine kogus
     public double getQuantity() {
         return quantity;
     }
@@ -53,7 +53,7 @@ import java.util.List;
     public Food getFood() {
         return food;
     }
-
+//rasvaprotsendi arvutus- kogus korrutatud protsendiga jagatud sajaga
     public double getFatAmount() {
         return quantity * food.getFatPct() / 100.0;
     }
@@ -135,21 +135,21 @@ import java.util.List;
 //toiduaine klass
  class FoodItem {
     private Recipe recipe;
-
+//retseptis oleva proteiini koguse väljastamine
     public double getProteinAmount() {
         return recipe.getProteinAmount();
     }
-
+//retseptis oleva rasva koguse väljastamine
     public double getFatAmount() {
         return recipe.getFatAmount();
     }
-
+//retseptis oleva süsivesikute koguse väljastamine
     public double getCarbAmount() {
         return recipe.getCarbAmount();
     }
 
     public static void main(String[] args) {
-        // Loo toiduasjad
+        // Loo toiduasjad ''Food'' klassi (proteiin, rasv, süsivesikud)
         Food potato = new Food("Kartul", 2.0, 0.1, 18.4);
         Food sourCream = new Food("Hapukoor", 2.0, 20.0, 3.0);
         Food sausage = new Food("Vorst", 15.0, 25.0, 1.0);
