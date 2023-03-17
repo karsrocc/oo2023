@@ -1,0 +1,197 @@
+import java.util.ArrayList;
+import java.util.List;
+
+ class Food {
+    private String name;
+    private double proteinPct;
+    private double fatPct;
+    private double carbPct;
+
+    Food(String name, double proteinPct, double fatPct, double carbPct) {
+        this.name = name;
+        this.proteinPct = proteinPct;
+        this.fatPct = fatPct;
+        this.carbPct = carbPct;
+
+        // check that percentages add up to 100
+        double totalPct = proteinPct + fatPct + carbPct;
+        if (totalPct > 100.0) {
+            throw new IllegalArgumentException("Protsent ei tohi ületada 100!");
+        }
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public double getProteinPct() {
+        return proteinPct;
+    }
+
+    public double getFatPct() {
+        return fatPct;
+    }
+
+    public double getCarbPct() {
+        return carbPct;
+    }
+}
+
+ class FoodComponent {
+    private double quantity;
+    private Food food;
+
+    public FoodComponent(double quantity, Food food) {
+        this.quantity = quantity;
+        this.food = food;
+    }
+
+    public double getQuantity() {
+        return quantity;
+    }
+
+    public Food getFood() {
+        return food;
+    }
+
+    public double getFatAmount() {
+        return quantity * food.getFatPct() / 100.0;
+    }
+}
+
+ class FoodList {
+    private List<Food> foods;
+
+    public FoodList() {
+        this.foods = new ArrayList<Food>();
+    }
+
+    public void addFood(Food food) {
+        foods.add(food);
+    }
+
+    public void removeFood(Food food) {
+        foods.remove(food);
+    }
+
+    public Food getFoodByName(String name) {
+        for (Food food : foods) {
+            if (food.getName().equals(name)) {
+                return food;
+            }
+        }
+        return null;
+    }
+
+    public List<Food> getFoodsByFatPctRange(double min, double max) {
+        List<Food> result = new ArrayList<Food>();
+        for (Food food : foods) {
+            double fatPct = food.getFatPct();
+            if (fatPct >= min && fatPct <= max) {
+                result.add(food);
+            }
+        }
+        return result;
+    }
+}
+
+ class Recipe {
+    private String name;
+    private List<FoodComponent> components;
+
+    public Recipe(String name) {
+        this.name = name;
+        this.components = new ArrayList<FoodComponent>();
+    }
+
+    public void addComponent(FoodComponent component) {
+        components.add(component);
+    }
+
+    public double getProteinAmount() {
+        double total = 0.0;
+        for (FoodComponent component : components) {
+            total += component.getQuantity() * component.getFood().getProteinPct() / 100.0;
+        }
+        return total;
+    }
+
+    public double getFatAmount() {
+        double total = 0.0;
+        for (FoodComponent component : components) {
+            total += component.getFatAmount();
+        }
+        return total;
+    }
+
+    public double getCarbAmount() {
+        double total = 0.0;
+        for (FoodComponent component : components) {
+            total += component.getQuantity() * component.getFood().getCarbPct() / 100.0;
+        }
+        return total;
+    }
+}
+
+ class FoodItem {
+    private Recipe recipe;
+
+    public double getProteinAmount() {
+        return recipe.getProteinAmount();
+    }
+
+    public double getFatAmount() {
+        return recipe.getFatAmount();
+    }
+
+    public double getCarbAmount() {
+        return recipe.getCarbAmount();
+    }
+
+    public static void main(String[] args) {
+        // create some food items
+        Food potato = new Food("Potato", 2.0, 0.1, 18.4);
+        Food sourCream = new Food("Sour Cream", 2.0, 20.0, 3.0);
+        Food sausage = new Food("Sausage", 15.0, 25.0, 1.0);
+
+        // create some food components
+        FoodComponent potatoComp = new FoodComponent(100.0, potato);
+        FoodComponent sourCreamComp = new FoodComponent(30.0, sourCream);
+        FoodComponent sausageComp = new FoodComponent(50.0, sausage);
+
+        // calculate the fat amount in the components
+        System.out.println("Potato fat: " + potatoComp.getFatAmount() + "g");
+        System.out.println("Sour cream fat: " + sourCreamComp.getFatAmount() + "g");
+        System.out.println("Sausage fat: " + sausageComp.getFatAmount() + "g");
+
+        // create a food list and add some foods
+        FoodList foodList = new FoodList();
+        foodList.addFood(potato);
+        foodList.addFood(sourCream);
+        foodList.addFood(sausage);
+
+        // test getting food by name
+        Food testFood = foodList.getFoodByName("Potato");
+        System.out.println("Test food name: " + testFood.getName());
+
+        // test getting food by fat percentage range
+        List<Food> testFoods = foodList.getFoodsByFatPctRange(0.0, 20.0);
+        System.out.println("Test foods by fat pct range:");
+        for (Food food : testFoods) {
+            System.out.println(food.getName());
+        }
+    }
+        {
+        // loo retsept ja lisa komponendid
+        Recipe Kartulisalat = new Recipe("Kartulisalat");
+        Kartulisalat.addComponent(potatoComp);
+        Kartulisalat.addComponent(sourCreamComp);
+        Kartulisalat.addComponent(sausageComp);
+
+        // test getting nutrient amounts from recipe
+        System.out.println("Kartulisalati proteiin: " + Kartulisalat.getProteinAmount() + "g");
+        System.out.println("Kartulisalati rasvad: " + Kartulisalat.getFatAmount() + "g");
+        System.out.println("Kartulisalati süsivesikud: " + Kartulisalat.getCarbAmount() + "g");
+        }
+
+}
